@@ -1,0 +1,279 @@
+# 1. Использование команды cat в Linux
+
+# Создать два текстовых файла: "Pets"(Домашние животные) и
+# "Pack animals"(вьючные животные), используя команду `cat` в
+# терминале Linux. В первом файле перечислить собак, кошек и
+# хомяков. Во втором — лошадей, верблюдов и ослов
+
+root@containersgb:~# cat > Pets
+собака
+кошка
+хомяк
+root@containersgb:~# cat > "Pack animals"
+лошадь
+верблюд
+осёл
+
+# Объединить содержимое этих двух файлов в один и
+просмотреть его содержимое
+
+root@containersgb:~# cat Pets Pack\ animals > unified
+root@containersgb:~# cat unified 
+собака
+кошка
+хомяк
+лошадь
+верблюд
+осёл
+
+# Переименовать получившийся файл в "Human Friends"
+
+root@containersgb:~# mv unified "Human Friends"
+root@containersgb:~# ls
+'Human Friends'  'Pack animals'   Pets
+
+# 2. Работа с директориями в Linux
+
+# Создать новую директорию и переместить туда файл "Human Friends"
+
+root@containersgb:~# mkdir new_dir
+root@containersgb:~# mv Human\ Friends new_dir/
+root@containersgb:~# ls
+ new_dir  'Pack animals'   Pets
+root@containersgb:~# ls new_dir/
+'Human Friends'
+
+# 3. Работа с MySQL в Linux. “Установить MySQL на вашу
+# вычислительную машину ”
+
+# Подключить дополнительный репозиторий MySQL и установить
+# один из пакетов из этого репозитория.
+
+##  https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
+root@containersgb:~# wget https://repo.mysql.com//mysql-apt-config_0.8.28-1_all.deb
+--2023-10-30 18:49:21--  https://repo.mysql.com//mysql-apt-config_0.8.28-1_all.deb
+Распознаётся repo.mysql.com (repo.mysql.com)… 23.210.173.94, 2a02:26f0:9500:b8a::1d68, 2a02:26f0:9500:b83::1d68
+Подключение к repo.mysql.com (repo.mysql.com)|23.210.173.94|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 200 OK
+Длина: 18124 (18K) [application/x-debian-package]
+Сохранение в: «mysql-apt-config_0.8.28-1_all.deb»
+
+mysql-apt-config_0.8.28-1_al 100%[==============================================>]  17,70K  --.-KB/s    за 0s      
+
+2023-10-30 18:49:21 (141 MB/s) - «mysql-apt-config_0.8.28-1_all.deb» сохранён [18124/18124]
+
+root@containersgb:~# dpkg -i ./mysql-apt-config_0.8.28-1_all.deb 
+Выбор ранее не выбранного пакета mysql-apt-config.
+(Чтение базы данных … на данный момент установлено 39846 файлов и каталогов.)
+Подготовка к распаковке …/mysql-apt-config_0.8.28-1_all.deb …
+Распаковывается mysql-apt-config (0.8.28-1) …
+Настраивается пакет mysql-apt-config (0.8.28-1) …
+root@containersgb:~# apt update
+Пол:1 http://security.debian.org/debian-security bookworm-security InRelease [48,0 kB]
+Пол:2 http://repo.mysql.com/apt/debian bookworm InRelease [17,9 kB]
+Сущ:3 http://deb.debian.org/debian bookworm InRelease                                                              
+Пол:4 http://deb.debian.org/debian bookworm-updates InRelease [52,1 kB]                                            
+Пол:5 https://download.docker.com/linux/debian bookworm InRelease [43,3 kB]       
+Пол:6 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 Sources [948 B]
+Пол:7 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 Packages [12,6 kB]
+Пол:8 http://repo.mysql.com/apt/debian bookworm/mysql-tools amd64 Packages [3 801 B]
+Пол:9 http://security.debian.org/debian-security bookworm-security/main Sources [53,4 kB]
+Пол:10 http://security.debian.org/debian-security bookworm-security/main amd64 Packages [88,9 kB]
+Пол:11 http://security.debian.org/debian-security bookworm-security/main Translation-en [50,8 kB]
+Пол:12 https://download.docker.com/linux/debian bookworm/stable amd64 Packages [13,2 kB]
+Получено 385 kB за 1с (369 kB/s)
+Чтение списков пакетов… Готово
+Построение дерева зависимостей… Готово
+Чтение информации о состоянии… Готово         
+Может быть обновлено 8 пакетов. Запустите «apt list --upgradable» для их показа.
+root@containersgb:~# apt install mysql-server
+Чтение списков пакетов… Готово
+Построение дерева зависимостей… Готово
+Чтение информации о состоянии… Готово         
+Следующие пакеты устанавливались автоматически и больше не требуются:
+  criu libintl-perl libintl-xs-perl libmodule-find-perl libmodule-scandeps-perl libnet1 libproc-processtable-perl
+  libprotobuf32 libsort-naturally-perl libterm-readkey-perl needrestart python3-protobuf sgml-base tini
+Для их удаления используйте «apt autoremove».
+Будут установлены следующие дополнительные пакеты:
+  libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client mysql-common mysql-community-client
+  mysql-community-client-core mysql-community-client-plugins mysql-community-server mysql-community-server-core
+  psmisc
+Следующие НОВЫЕ пакеты будут установлены:
+  libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client mysql-common mysql-community-client
+  mysql-community-client-core mysql-community-client-plugins mysql-community-server mysql-community-server-core
+  mysql-server psmisc
+Обновлено 0 пакетов, установлено 13 новых пакетов, для удаления отмечено 0 пакетов, и 8 пакетов не обновлено.
+Необходимо скачать 42,6 MB архивов.
+После данной операции объём занятого дискового пространства возрастёт на 359 MB.
+Хотите продолжить? [Д/н] y
+Пол:1 http://deb.debian.org/debian bookworm/main amd64 libmecab2 amd64 0.996-14+b14 [222 kB]
+Пол:2 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-common amd64 8.0.35-1debian12 [67,5 kB]
+Пол:3 http://deb.debian.org/debian bookworm/main amd64 psmisc amd64 23.6-1 [259 kB]
+Пол:4 http://deb.debian.org/debian bookworm/main amd64 mecab-utils amd64 0.996-14+b14 [6 328 B]
+Пол:5 http://deb.debian.org/debian bookworm/main amd64 mecab-ipadic all 2.7.0-20070801+main-3 [6 718 kB]
+Пол:6 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-community-client-plugins amd64 8.0.35-1debian12 [1 319 kB]
+Пол:7 http://deb.debian.org/debian bookworm/main amd64 mecab-ipadic-utf8 all 2.7.0-20070801+main-3 [5 496 B]
+Пол:8 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-community-client-core amd64 8.0.35-1debian12 [1 901 kB]
+Пол:9 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-community-client amd64 8.0.35-1debian12 [3 292 kB]
+Пол:10 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-client amd64 8.0.35-1debian12 [66,2 kB]
+Пол:11 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-community-server-core amd64 8.0.35-1debian12 [28,6 MB]
+Пол:12 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-community-server amd64 8.0.35-1debian12 [76,5 kB]
+Пол:13 http://repo.mysql.com/apt/debian bookworm/mysql-8.0 amd64 mysql-server amd64 8.0.35-1debian12 [66,2 kB]
+Получено 42,6 MB за 4с (10,3 MB/s)         
+Предварительная настройка пакетов …
+Выбор ранее не выбранного пакета mysql-common.
+(Чтение базы данных … на данный момент установлен 39851 файл и каталог.)
+Подготовка к распаковке …/00-mysql-common_8.0.35-1debian12_amd64.deb …
+Распаковывается mysql-common (8.0.35-1debian12) …
+Выбор ранее не выбранного пакета mysql-community-client-plugins.
+Подготовка к распаковке …/01-mysql-community-client-plugins_8.0.35-1debian12_amd64.deb …
+Распаковывается mysql-community-client-plugins (8.0.35-1debian12) …
+Выбор ранее не выбранного пакета mysql-community-client-core.
+Подготовка к распаковке …/02-mysql-community-client-core_8.0.35-1debian12_amd64.deb …
+Распаковывается mysql-community-client-core (8.0.35-1debian12) …
+Выбор ранее не выбранного пакета mysql-community-client.
+Подготовка к распаковке …/03-mysql-community-client_8.0.35-1debian12_amd64.deb …
+Распаковывается mysql-community-client (8.0.35-1debian12) …
+Выбор ранее не выбранного пакета mysql-client.
+Подготовка к распаковке …/04-mysql-client_8.0.35-1debian12_amd64.deb …
+Распаковывается mysql-client (8.0.35-1debian12) …
+Выбор ранее не выбранного пакета libmecab2:amd64.
+Подготовка к распаковке …/05-libmecab2_0.996-14+b14_amd64.deb …
+Распаковывается libmecab2:amd64 (0.996-14+b14) …
+Выбор ранее не выбранного пакета mysql-community-server-core.
+Подготовка к распаковке …/06-mysql-community-server-core_8.0.35-1debian12_amd64.deb …
+Распаковывается mysql-community-server-core (8.0.35-1debian12) …
+Выбор ранее не выбранного пакета psmisc.
+Подготовка к распаковке …/07-psmisc_23.6-1_amd64.deb …
+Распаковывается psmisc (23.6-1) …
+Выбор ранее не выбранного пакета mysql-community-server.
+Подготовка к распаковке …/08-mysql-community-server_8.0.35-1debian12_amd64.deb …
+adduser: Предупреждение: указанный вами домашний каталог /var/lib/mysql недоступен: No such file or directory
+Распаковывается mysql-community-server (8.0.35-1debian12) …
+Выбор ранее не выбранного пакета mecab-utils.
+Подготовка к распаковке …/09-mecab-utils_0.996-14+b14_amd64.deb …
+Распаковывается mecab-utils (0.996-14+b14) …
+Выбор ранее не выбранного пакета mecab-ipadic.
+Подготовка к распаковке …/10-mecab-ipadic_2.7.0-20070801+main-3_all.deb …
+Распаковывается mecab-ipadic (2.7.0-20070801+main-3) …
+Выбор ранее не выбранного пакета mecab-ipadic-utf8.
+Подготовка к распаковке …/11-mecab-ipadic-utf8_2.7.0-20070801+main-3_all.deb …
+Распаковывается mecab-ipadic-utf8 (2.7.0-20070801+main-3) …
+Выбор ранее не выбранного пакета mysql-server.
+Подготовка к распаковке …/12-mysql-server_8.0.35-1debian12_amd64.deb …
+Распаковывается mysql-server (8.0.35-1debian12) …
+Настраивается пакет libmecab2:amd64 (0.996-14+b14) …
+Настраивается пакет mysql-common (8.0.35-1debian12) …
+update-alternatives: используется /etc/mysql/my.cnf.fallback для предоставления /etc/mysql/my.cnf (my.cnf) в автоматическом режиме
+Настраивается пакет psmisc (23.6-1) …
+Настраивается пакет mysql-community-server-core (8.0.35-1debian12) …
+Настраивается пакет mecab-utils (0.996-14+b14) …
+Настраивается пакет mysql-community-client-plugins (8.0.35-1debian12) …
+Настраивается пакет mecab-ipadic (2.7.0-20070801+main-3) …
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: используется /var/lib/mecab/dic/ipadic для предоставления /var/lib/mecab/dic/debian (mecab-dictionary) в автоматическом режиме
+Настраивается пакет mysql-community-client-core (8.0.35-1debian12) …
+Настраивается пакет mecab-ipadic-utf8 (2.7.0-20070801+main-3) …
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: используется /var/lib/mecab/dic/ipadic-utf8 для предоставления /var/lib/mecab/dic/debian (mecab-dictionary) в автоматическом режиме
+Настраивается пакет mysql-community-client (8.0.35-1debian12) …
+Настраивается пакет mysql-client (8.0.35-1debian12) …
+Настраивается пакет mysql-community-server (8.0.35-1debian12) …
+update-alternatives: используется /etc/mysql/mysql.cnf для предоставления /etc/mysql/my.cnf (my.cnf) в автоматическом режиме
+Created symlink /etc/systemd/system/multi-user.target.wants/mysql.service → /lib/systemd/system/mysql.service.
+Настраивается пакет mysql-server (8.0.35-1debian12) …
+Обрабатываются триггеры для man-db (2.11.2-2) …
+Обрабатываются триггеры для libc-bin (2.36-9+deb12u3) …
+Сканирование процессов...                                                                      
+Сканирование образов linux...                                                                    
+
+Запущено ядро последней версии.
+
+Службы не требуют перезапуска.
+
+Контейнеры не требуют перезапуска.
+
+В сеансах пользователей нет устаревших процессов.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+root@containersgb:~# 
+
+# 4. Управление deb-пакетами
+
+# Установить и затем удалить deb-пакет, используя команду `dpkg`
+
+# установка уже была в предыдущем пункте (root@containersgb:~# dpkg -i ./mysql-apt-config_0.8.28-1_all.deb)
+root@containersgb:~# dpkg -l | grep mysql
+# ...
+root@containersgb:~# dpkg -r mysql-apt-config
+(Чтение базы данных … на данный момент установлено 40323 файла и каталога.)
+Удаляется mysql-apt-config (0.8.28-1) …
+root@containersgb:~# 
