@@ -1,3 +1,9 @@
 package ru.study.nursery.model.packAnimals;
 
-public class Camel extends PackAnimals {}
+import java.util.Date;
+
+public class Camel extends PackAnimals {
+    public Camel(String name, Date bdate) {
+        super(name, bdate);
+    }
+}
