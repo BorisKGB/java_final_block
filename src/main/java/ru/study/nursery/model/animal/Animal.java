@@ -16,15 +16,14 @@ public abstract class Animal {
     private final byte learn_probability = 0;
 
     public Animal(String name, Date bdate) {
-        this.name = name;
-        this.birthDate = bdate;
-        this.commands = new ArrayList<>();
+        this(name, bdate, null);
     }
 
     public Animal(String name, Date bdate, List<Command> commands) {
         this.name = name;
         this.birthDate = bdate;
-        commands = new ArrayList<>();
+        if (commands == null) commands = new ArrayList<>();
+        this.commands = commands;
     }
 
     /**
