@@ -10,7 +10,7 @@ import static ru.study.nursery.model.NurseryService.numberInRange;
 
 public abstract class Animal {
     private String name;
-    private Date birthDate;
+    private final Date birthDate;
     private List<Command> commands;
     private final short max_commands = 0;
     private final byte learn_probability = 0;
@@ -34,7 +34,7 @@ public abstract class Animal {
      * @return learning result
      */
     public boolean learn(Command command) {
-        if (commands != null && commands.size() < max_commands && numberInRange(0, 100) > learn_probability) {
+        if (commands != null && commands.size() < max_commands && numberInRange(0, 100) <= learn_probability) {
             commands.add(command);
             return true;
         }
@@ -59,6 +59,10 @@ public abstract class Animal {
 
     public byte getLearn_probability() {
         return learn_probability;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
