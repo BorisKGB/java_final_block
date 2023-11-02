@@ -1,5 +1,3 @@
 package ru.study.nursery.model.pets;
 
-public class Cat  extends Pets{
-
-}
+public class Cat extends Pets{}
