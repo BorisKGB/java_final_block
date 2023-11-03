@@ -1,6 +1,10 @@
 package ru.study.nursery.model.animalFactory;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class FactoryAnimalProvider {
+    public static List<String> availableAnimalClass = Arrays.asList("camel", "cat", "dog", "donkey", "hamster", "horse");
     public static AbstractAnimalFactory getFactory(String choice) {
         switch (choice.toLowerCase()) {
             case "camel":
