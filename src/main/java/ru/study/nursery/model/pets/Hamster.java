@@ -1,10 +1,10 @@
 package ru.study.nursery.model.pets;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Hamster extends Pets {
     private final short max_commands = 5;
-    public Hamster(String name, Date bdate) {
+    public Hamster(String name, Calendar bdate) {
         super(name, bdate);
     }
 }

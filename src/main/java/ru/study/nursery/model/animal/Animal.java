@@ -2,24 +2,26 @@ package ru.study.nursery.model.animal;
 
 import ru.study.nursery.model.command.Command;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import static ru.study.nursery.model.NurseryService.numberInRange;
 
 public abstract class Animal {
     private String name;
-    private final Date birthDate;
+    private final Calendar birthDate;
     private List<Command> commands;
     private final short max_commands = 0;
     private final byte learn_probability = 0;
 
-    public Animal(String name, Date bdate) {
+    public Animal(String name, Calendar bdate) {
         this(name, bdate, null);
     }
 
-    public Animal(String name, Date bdate, List<Command> commands) {
+    public Animal(String name, Calendar bdate, List<Command> commands) {
         this.name = name;
         this.birthDate = bdate;
         if (commands == null) commands = new ArrayList<>();
@@ -44,7 +46,7 @@ public abstract class Animal {
         return name;
     }
 
-    public Date getBirthDate() {
+    public Calendar getBirthDate() {
         return birthDate;
     }
 
@@ -66,9 +68,8 @@ public abstract class Animal {
 
     @Override
     public String toString() {
-        return "Animal{" + "name='" + name + '\'' +
-                ", birthDate=" + birthDate +
-                ", commands=" + commands +
-                '}';
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return name + " : " + df.format(birthDate.getTime()) +
+                " : " + commands;
     }
 }

@@ -7,11 +7,12 @@ import ru.study.nursery.model.command.Command;
 import ru.study.nursery.model.command.CommandList;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
-import java.util.Comparator;
 import java.util.Random;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
 
 public class NurseryService {
     private final List<Animal> animals;
@@ -34,7 +35,7 @@ public class NurseryService {
     }
 
     @SuppressWarnings("unchecked")
-    public boolean addAnimal(String type, String name, Date bdate) {
+    public boolean addAnimal(String type, String name, Calendar bdate) {
         AbstractAnimalFactory<Animal> factory = FactoryAnimalProvider.getFactory(type);
         if (factory != null) {
             animals.add(factory.create(name, bdate));
