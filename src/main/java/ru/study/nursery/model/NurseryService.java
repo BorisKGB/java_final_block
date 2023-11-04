@@ -123,4 +123,18 @@ public class NurseryService {
         }
         return result;
     }
+
+    public void addTestData() {
+        addAnimal("dog", "Fido", new GregorianCalendar(2020, Calendar.JANUARY , 1));
+        teachCommand("Fido", "sit");
+        teachCommand("Fido", "fetch");
+        addAnimal("cat", "Whiskers", new GregorianCalendar(2019, Calendar.MAY, 15));
+        teachCommand("Whiskers", "sit");
+        addAnimal("hamster", "Hammy", new GregorianCalendar(2021, Calendar.MARCH, 10));
+        teachCommand("Hammy", "roll");
+        teachCommand("Hammy", "Hide");
+        addAnimal("dog", "Buddy", new GregorianCalendar(2018, Calendar.DECEMBER, 10));
+        teachCommand("Buddy", "Sit");
+        teachCommand("Buddy", "Paw");
+    }
 }

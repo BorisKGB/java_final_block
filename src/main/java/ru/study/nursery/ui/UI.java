@@ -8,4 +8,5 @@ public interface UI {
     void addAnimal();
     void getAnimalCount();
     void showAnimals(boolean orderByDate);
+    void addTestData();
 }

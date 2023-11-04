@@ -94,7 +94,11 @@ public class Console implements UI{
 
     @Override
     public void showAnimals(boolean orderByDate) {
-        print("show");
-        return;
+        presenter.showAnimals(orderByDate);
+    }
+
+    @Override
+    public void addTestData() {
+        presenter.addTestData();
     }
 }
