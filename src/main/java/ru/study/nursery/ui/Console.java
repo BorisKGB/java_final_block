@@ -4,12 +4,14 @@ import ru.study.nursery.presenter.Presenter;
 import ru.study.nursery.ui.menu.MainMenu;
 import ru.study.nursery.ui.menu.Menu;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Console implements UI{
     private static final String GREETING = "Hello.";
     private static final String FAREWELL = "Have a nice day.";
     private static final String WRONGCHOICE = "Такого пункта нет, попробуйте ещё раз.";
+    private static final String INCORRECTINPUT = "Неправильный формат данных.";
     private static final String NODATA = "Нет данных";
     private Scanner scanner;
     private Presenter presenter;
@@ -74,22 +76,52 @@ public class Console implements UI{
         }
         return -1;
     }
+    private int parseInput(String input, List<String> elements) {
+        if (input.matches("^\\d+$")) {
+            int numInput = Integer.parseInt(input);
+            if (numInput > 0 && numInput <= elements.size()) return numInput;
+        }
+        return -1;
+    }
 
     @Override
     public String noData() {
         return NODATA;
     }
 
+    private boolean isDateFormatValid(String dateString) {
+        return dateString.matches("^\\d{4}-\\d{2}-\\d{2}$") || dateString.isEmpty();
+    }
+
     @Override
     public void addAnimal() {
-        print("add");
-        return;
+        print("Выберите тип животного для добавления из списка ниже");
+        presenter.showAnimalTypes();
+        String userInput = scanner.nextLine();
+        int choice = parseInput(userInput, presenter.getAnimalTypes());
+        if (choice != -1) {
+            print("Введите имя животного");
+            String name = scanner.nextLine();
+            print("Введите дату рождения животного в формате YYYY-MM-DD");
+            String birthDateStr = scanner.nextLine();
+            if (isDateFormatValid(birthDateStr)) {
+                if (presenter.addAnimal(choice, name, birthDateStr)) {
+                    print("Успешное создание");
+                } else print("Что-то пошло не так, попробуйте ещё раз");
+            } else {
+                print(INCORRECTINPUT);
+            }
+
+
+        } else {
+            print(WRONGCHOICE);
+        }
+
     }
 
     @Override
     public void getAnimalCount() {
-        print("count");
-        return;
+        presenter.getAnimalCount();
     }
 
     @Override
