@@ -36,6 +36,8 @@ public class NurseryService {
 
     @SuppressWarnings("unchecked")
     public boolean addAnimal(String type, String name, Calendar bdate) {
+        Animal existed = getAnimalByName(name);
+        if (existed != null) return false;
         AbstractAnimalFactory<Animal> factory = FactoryAnimalProvider.getFactory(type);
         if (factory != null) {
             animals.add(factory.create(name, bdate));
