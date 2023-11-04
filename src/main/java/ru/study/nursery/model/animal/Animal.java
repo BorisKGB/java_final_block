@@ -14,16 +14,22 @@ public abstract class Animal {
     private String name;
     private final Calendar birthDate;
     private List<Command> commands;
-    private final short max_commands = 0;
-    private final byte learn_probability = 0;
+    private final short max_commands;
+    private final byte learn_probability;
 
     public Animal(String name, Calendar bdate) {
-        this(name, bdate, null);
+        this(name, bdate, (short) 0, (byte)0, null);
     }
 
-    public Animal(String name, Calendar bdate, List<Command> commands) {
+    public Animal(String name, Calendar bdate, short max_commands, byte learn_probability) {
+        this(name, bdate, max_commands, learn_probability,null);
+    }
+
+    public Animal(String name, Calendar bdate, short max_commands, byte learn_probability, List<Command> commands) {
         this.name = name;
         this.birthDate = bdate;
+        this.max_commands = max_commands;
+        this.learn_probability = learn_probability;
         if (commands == null) commands = new ArrayList<>();
         this.commands = commands;
     }
@@ -35,7 +41,7 @@ public abstract class Animal {
      * @return learning result
      */
     public boolean learn(Command command) {
-        if (commands != null && commands.size() < max_commands && numberInRange(0, 100) <= learn_probability) {
+        if (commands != null && commands.size() < max_commands && !commands.contains(command) && numberInRange(0, 100) <= learn_probability) {
             commands.add(command);
             return true;
         }

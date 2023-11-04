@@ -65,6 +65,17 @@ public class NurseryService {
         return null;
     }
 
+    private boolean teachCommand(Animal animal, Command command) {
+        if (animal != null) {
+            if (command != null) return animal.learn(command);
+        }
+        return false;
+    }
+
+    public boolean teachCommand(String animalName, String commandName) {
+        return teachCommand(getAnimalByName(animalName), availableCommands.getCommand(commandName));
+    }
+
     private List<String> getAnimalCommandNames(Animal animal)
     {
         List<String> result = new ArrayList<>();
