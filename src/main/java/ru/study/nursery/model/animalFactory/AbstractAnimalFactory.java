@@ -2,8 +2,8 @@ package ru.study.nursery.model.animalFactory;
 
 import ru.study.nursery.model.animal.Animal;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public interface AbstractAnimalFactory<T extends Animal> {
-    T create(String name, Date bdate);
+    T create(String name, Calendar bdate);
 }

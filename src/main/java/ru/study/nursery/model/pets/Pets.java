@@ -2,12 +2,16 @@ package ru.study.nursery.model.pets;
 
 import ru.study.nursery.model.animal.Animal;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public abstract class Pets extends Animal {
-    private final short max_commands = 16;
-    private final byte learn_probability = 45;
-    public Pets(String name, Date bdate) {
-        super(name, bdate);
+    public Pets(String name, Calendar bdate) {
+        this(name, bdate, (short) 16, (byte) 45);
+    }
+    public Pets(String name, Calendar bdate, short max_commands) {
+        this(name, bdate, max_commands, (byte) 45);
+    }
+    public Pets(String name, Calendar bdate, short max_commands, byte learn_probability) {
+        super(name, bdate, max_commands, learn_probability);
     }
 }

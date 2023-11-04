@@ -1,7 +1,12 @@
 package ru.study.nursery.model.command;
 
 class AbstractCommand implements Command {
-    private final String name = null;
+    private String name;
+
+    public AbstractCommand(String name) {
+        this.name = name;
+    }
+
     @Override
     public String exec() {
         return name;

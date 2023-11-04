@@ -6,12 +6,7 @@ import ru.study.nursery.model.animalFactory.FactoryAnimalProvider;
 import ru.study.nursery.model.command.Command;
 import ru.study.nursery.model.command.CommandList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 public class NurseryService {
     private final List<Animal> animals;
@@ -34,7 +29,9 @@ public class NurseryService {
     }
 
     @SuppressWarnings("unchecked")
-    public boolean addAnimal(String type, String name, Date bdate) {
+    public boolean addAnimal(String type, String name, Calendar bdate) {
+        Animal existed = getAnimalByName(name);
+        if (existed != null) return false;
         AbstractAnimalFactory<Animal> factory = FactoryAnimalProvider.getFactory(type);
         if (factory != null) {
             animals.add(factory.create(name, bdate));
@@ -48,8 +45,10 @@ public class NurseryService {
         return animalCounter;
     }
 
-    public Set<String> getAvailableCommands(){
-        return availableCommands.listAvailableCommandsNames();
+    public List<String> getAvailableCommands(){
+        List<String> result = new ArrayList<>(availableCommands.listAvailableCommandsNames());
+        Collections.sort(result);
+        return result;
     }
 
     /**
@@ -62,6 +61,17 @@ public class NurseryService {
             if (animal.getName().equalsIgnoreCase(name)) return animal;
         }
         return null;
+    }
+
+    private boolean teachCommand(Animal animal, Command command) {
+        if (animal != null) {
+            if (command != null) return animal.learn(command);
+        }
+        return false;
+    }
+
+    public boolean teachCommand(String animalName, String commandName) {
+        return teachCommand(getAnimalByName(animalName), availableCommands.getCommand(commandName));
     }
 
     private List<String> getAnimalCommandNames(Animal animal)
@@ -80,6 +90,14 @@ public class NurseryService {
 
     public List<String> getAnimalCommandNames(String name) {
         return getAnimalCommandNames(getAnimalByName(name));
+    }
+
+    public List<String> getAnimalNames() {
+        List<String> result = new ArrayList<>();
+        for (Animal animal : animals) {
+            result.add(animal.getName());
+        }
+        return result;
     }
 
     private String getAnimalDescription(Animal animal) {
@@ -108,5 +126,19 @@ public class NurseryService {
             result.add(getAnimalDescription(animal));
         }
         return result;
+    }
+
+    public void addTestData() {
+        addAnimal("dog", "Fido", new GregorianCalendar(2020, Calendar.JANUARY , 1));
+        teachCommand("Fido", "sit");
+        teachCommand("Fido", "fetch");
+        addAnimal("cat", "Whiskers", new GregorianCalendar(2019, Calendar.MAY, 15));
+        teachCommand("Whiskers", "sit");
+        addAnimal("hamster", "Hammy", new GregorianCalendar(2021, Calendar.MARCH, 10));
+        teachCommand("Hammy", "roll");
+        teachCommand("Hammy", "Hide");
+        addAnimal("dog", "Buddy", new GregorianCalendar(2018, Calendar.DECEMBER, 10));
+        teachCommand("Buddy", "Sit");
+        teachCommand("Buddy", "Paw");
     }
 }
