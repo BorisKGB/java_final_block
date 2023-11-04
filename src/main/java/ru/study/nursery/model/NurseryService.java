@@ -6,13 +6,7 @@ import ru.study.nursery.model.animalFactory.FactoryAnimalProvider;
 import ru.study.nursery.model.command.Command;
 import ru.study.nursery.model.command.CommandList;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Set;
-import java.util.Random;
-import java.util.Comparator;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class NurseryService {
     private final List<Animal> animals;
@@ -51,8 +45,10 @@ public class NurseryService {
         return animalCounter;
     }
 
-    public Set<String> getAvailableCommands(){
-        return availableCommands.listAvailableCommandsNames();
+    public List<String> getAvailableCommands(){
+        List<String> result = new ArrayList<>(availableCommands.listAvailableCommandsNames());
+        Collections.sort(result);
+        return result;
     }
 
     /**
@@ -94,6 +90,14 @@ public class NurseryService {
 
     public List<String> getAnimalCommandNames(String name) {
         return getAnimalCommandNames(getAnimalByName(name));
+    }
+
+    public List<String> getAnimalNames() {
+        List<String> result = new ArrayList<>();
+        for (Animal animal : animals) {
+            result.add(animal.getName());
+        }
+        return result;
     }
 
     private String getAnimalDescription(Animal animal) {

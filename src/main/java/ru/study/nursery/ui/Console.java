@@ -111,12 +111,9 @@ public class Console implements UI{
             } else {
                 print(INCORRECTINPUT);
             }
-
-
         } else {
             print(WRONGCHOICE);
         }
-
     }
 
     @Override
@@ -132,5 +129,28 @@ public class Console implements UI{
     @Override
     public void addTestData() {
         presenter.addTestData();
+    }
+
+    @Override
+    public void teachAnimal() {
+        print("Выберите животное из списка ниже");
+        presenter.showAnimalsList();
+        String userInput = scanner.nextLine();
+        int animalChoice = parseInput(userInput, presenter.getAnimalList());
+        if (animalChoice != -1) {
+            print("Выберите команду из списка ниже");
+            presenter.showCommandList();
+            String name = scanner.nextLine();
+            int commandChoice = parseInput(name, presenter.getCommandList());
+            if (commandChoice != -1) {
+                if (presenter.teachAnimal(animalChoice, commandChoice)) {
+                        print("Обучение успешно");
+                } else print("Не удалось, может в следующий раз получится");
+            } else {
+                print(WRONGCHOICE);
+            }
+        } else {
+            print(WRONGCHOICE);
+        }
     }
 }

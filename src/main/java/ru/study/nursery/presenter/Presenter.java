@@ -57,4 +57,36 @@ public class Presenter {
             return false;
         }
     }
+
+    public List<String> getAnimalList() {
+        return model.getAnimalNames();
+    }
+
+    public void showAnimalsList() {
+        List<String> animalStrings = model.getAnimalNames();
+        if (animalStrings.isEmpty()) view.print(view.noData());
+        else {
+            for (int i = 0; i < animalStrings.size(); i++) {
+                view.print(String.format("%d. %s", i+1, animalStrings.get(i)));
+            }
+        }
+    }
+
+    public List<String> getCommandList() {
+        return model.getAvailableCommands();
+    }
+
+    public void showCommandList() {
+        List<String> commands = model.getAvailableCommands();
+        if (commands.isEmpty()) view.print(view.noData());
+        else {
+            for (int i = 0; i < commands.size(); i++) {
+                view.print(String.format("%d. %s", i+1, commands.get(i)));
+            }
+        }
+    }
+
+    public boolean teachAnimal(int animalChoice, int commandChoice) {
+        return model.teachCommand(model.getAnimalNames().get(animalChoice-1), model.getAvailableCommands().get(commandChoice-1));
+    }
 }

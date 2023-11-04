@@ -9,4 +9,5 @@ public interface UI {
     void getAnimalCount();
     void showAnimals(boolean orderByDate);
     void addTestData();
+    void teachAnimal();
 }

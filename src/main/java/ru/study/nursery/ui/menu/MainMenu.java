@@ -10,9 +10,8 @@ public class MainMenu extends Menu {
                 new ShowAnimals(view),
                 new ShowAnimalsByDate(view),
                 new AddAnimal(view),
+                new TeachAnimal(view),
                 new GetAnimalCount(view)
         );
     }
-
-
 }
